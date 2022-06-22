@@ -1,0 +1,80 @@
+----會員----
+create table USER_INFO(
+	ID int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	USER_ID varchar(100) UNIQUE NOT NULL,
+	USER_NAME varchar(100) not null,
+	GENDER ENUM('M','F','X') not null,
+	USER_MAIL varchar(200) UNIQUE not null,
+	USER_TOKEN varchar(300) default (REPLACE(UUID(),'-','')),
+	USER_ADDRESS varchar(300) not null,
+	USER_BIRTHDAY date not null,
+	USER_PHONE varchar(100) not null,
+	PHOTO_STICKERS varchar(300) not null,
+	USER_STATUS ENUM('1','2') not null,
+	CREATE_ID varchar(100) not null,
+	CREATE_TIME datetime default (sysdate()) not null,
+	REVISE_ID varchar(100) not null,
+	REVISE_TIME  datetime default null,
+	CONSTRAINT CHK_USER_PHONE CHECK (USER_PHONE REGEXP '[^0-9]' = 0),
+	CONSTRAINT CHK_USER_MAIL CHECK (USER_MAIL REGEXP '[a-zA-Z0-9_\-]+@([a-zA-Z0-9_\-]+\.)+(com|org|edu)' = 1)
+)
+-----相簿---------------
+create table USER_ALBUM(
+	ID int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	ALBUM_ID varchar(100) DEFAULT(CONCAT('A', DATE_FORMAT(CURRENT_DATE(),'%Y%m'), '_', REPLACE(UUID(),'-',''))) UNIQUE NOT NULL,
+	USER_ID varchar(100) not null,
+	ALBUM_NAME varchar(100) not null,
+	ALBUM_CATEGORY ENUM('life','work','food','interest') not null,
+	ALBUM_STATUS ENUM('1','2') not null,
+	CREATE_ID varchar(100) not null,
+	CREATE_TIME datetime default (sysdate()) not null,
+	REVISE_ID varchar(100) not null,
+	REVISE_TIME  datetime default null,
+	FOREIGN KEY (USER_ID) REFERENCES USER_INFO(USER_ID)
+)
+------相片------------------
+create table urser_photo(
+	ID int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	PHOTO_ID varchar(100) DEFAULT(CONCAT('P', DATE_FORMAT(CURRENT_DATE(),'%Y%m'), '_', REPLACE(UUID(),'-',''))) UNIQUE NOT NULL,
+	ALBUM_ID varchar(100) not null,
+	USER_ID varchar(100) not null,
+	PHOTO_NAME varchar(100) not null,
+	PHOTO_DESC varchar(200) not null,
+	CREATE_ID varchar(100) not null,
+	CREATE_TIME datetime default (sysdate()) not null,
+	REVISE_ID varchar(100) not null,
+	REVISE_TIME  datetime default null,
+	FOREIGN KEY (USER_ID) REFERENCES USER_INFO(USER_ID),
+	FOREIGN KEY (ALBUM_ID) REFERENCES USER_ALBUM(ALBUM_ID)
+)
+-----朋友--------
+create table USER_FRIEND(
+	ID int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	RELATIONSHIP_ID varchar(100) DEFAULT(CONCAT('RE', DATE_FORMAT(CURRENT_DATE(),'%Y%m'), '_', REPLACE(UUID(),'-',''))) UNIQUE NOT NULL,
+	USER_ID varchar(100) not null ,
+	FRIEND_ID varchar(100) not null,
+	FRIEND_PHOTO varchar(200) not null,
+	FRIEND_POSTID varchar(100) not null,
+	FRIEND_ALBUMID varchar(100) not null,
+	CREATE_ID varchar(100) not null,
+	CREATE_TIME datetime default (sysdate()) not null,
+	REVISE_ID varchar(100) not null,
+	REVISE_TIME  datetime default null,
+	FOREIGN KEY (USER_ID) REFERENCES USER_INFO(USER_ID),
+	FOREIGN KEY (FRIEND_ID) REFERENCES USER_INFO(USER_ID),
+	FOREIGN KEY (FRIEND_ALBUMID) REFERENCES USER_ALBUM(ALBUM_ID)
+)
+--貼文
+create table USER_POST(
+	ID int AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	POST_ID varchar(100) DEFAULT(CONCAT('PO', DATE_FORMAT(CURRENT_DATE(),'%Y%m'), '_', REPLACE(UUID(),'-',''))) UNIQUE NOT NULL,
+	USER_ID varchar(100) not null ,
+	POST_PHOTO varchar(200) not null,
+	POST_DESC varchar(200) not null,
+	POST_STATUS ENUM('1','2') not null,
+	CREATE_ID varchar(100) not null,
+	CREATE_TIME datetime default (sysdate()) not null,
+	REVISE_ID varchar(100) not null,
+	REVISE_TIME  datetime default null,
+	FOREIGN KEY (USER_ID) REFERENCES USER_INFO(USER_ID)
+)
