@@ -9,7 +9,7 @@ import tw.com.rtsocial.bot.domain.UserinfoBean;
 @Repository
 public interface UserinfoRepository extends JpaRepository<UserinfoBean, Integer>{
 	//資料儲存曾
-	//搜尋 by id
+	//搜尋 by userid
 	List<UserinfoBean> findByUserid(String userid);
 	//搜尋 by mail
 	List<UserinfoBean> findByUsermail(String usermail);

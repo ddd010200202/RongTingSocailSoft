@@ -38,8 +38,11 @@
             height: 600px;
             background: #333;
         }
-        ul,li{
-            padding:0; margin:0;
+
+        ul,
+        li {
+            padding: 0;
+            margin: 0;
         }
     </style>
 </head>
@@ -104,7 +107,7 @@
             <div class="row" style="">
                 <div class="col-xl-3">
                     <h1>Friend</h1>
-                    
+
                     <div>
                         <ul style="list-style: none;">
                             <li>
@@ -125,24 +128,24 @@
                 <div class="col-xl-6">
                     <h1>Post</h1>
                     <div>
-                    <h3>Title</h3>
-                    <p style="font-size: 5px;">Time</p>
-                    <p>Post_Desc</p>
-                    
-                    <img src="./img/mMC9FBk.jpg" style="width:546px;">
-                    <input type="text">
-                    <button>Message</button><br>
-                    <ul style="list-style: none;">
-                        <li>
-                            Message_Desc
-                        </li>
-                    </ul>
-                    
+                        <h3>Title</h3>
+                        <p style="font-size: 5px;">Time</p>
+                        <p>Post_Desc</p>
+
+                        <img src="./img/mMC9FBk.jpg" style="width:546px;">
+                        <input type="text">
+                        <button>Message</button><br>
+                        <ul style="list-style: none;">
+                            <li>
+                                Message_Desc
+                            </li>
+                        </ul>
+
                     </div>
-                    
+
                 </div>
                 <div class="col-xl-3">
-                    <h1>Album</h1>
+                    <h1 id="aa">Album</h1>
                     <table>
                         <tbody>
                             <tr>
@@ -179,7 +182,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!--地圖-->
     <script type="module" src="./app/homepage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+        integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+
         var map;
         const center = [24.150614292391815, 120.65107267063031];
         map = L.map('map', {
@@ -215,6 +222,75 @@
         // $('#loginbtn').on('click', function() {
         //     window.location.href="login.html";
         // });
+        // console.log('Bearer '+'eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk4OTdjZjk0NTllMjU0ZmYxYzY3YTRlYjZlZmVhNTJmMjFhOWJhMTQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUm9uZ1RpbmcgV3UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKemFTV0NodGdKMThTZ2RnUFVBSE5aVDB2NVBvV09VSDA4SGMwaDY9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXVkIjoicm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXV0aF90aW1lIjoxNjU2MjAzMjcyLCJ1c2VyX2lkIjoiU1lZS3k0VE53MVNWQnBOY0g5ZGVqTTFFT2tsMSIsInN1YiI6IlNZWUt5NFROdzFTVkJwTmNIOWRlak0xRU9rbDEiLCJpYXQiOjE2NTYyNDA5NzUsImV4cCI6MTY1NjI0NDU3NSwiZW1haWwiOiJyb25ndGluZ2NvbXBhbnlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicm9uZ3Rpbmdjb21wYW55QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.qFVJt95cc-nYB8o5v9Bs4oq4Pc68hCGkgayCKVD1mF_Z7Udmc5fr0-No1nQNGJ4mi7y59FcYFiGMTRR-1P7yMNDbklwtrVe7GwRBVWOkPb9TmTchWXR01NEaHNpMv4rlVmkzLhB-DfdVBWrWjrRGs_Lnvr5zxxl48NHNgxHbnE-01MTQQ0I3Gi5cp1U9x5EWghlsRnZTYdD11KdjqwaquSdgzPlM6S8t8W-qYdgmvJThk7fz0awcf6FiGhftzh_y7Xb6-wmJ12MqctSo231C9AKFseHnTYEVW3rh9p70Uwgl5PVwgnLh7gImgEmeh0jYTtR-TGNoDS6xSruSxZL7SQ')
+        // fetch("http://localhost:8083/api/users", {
+        //     mode: 'no-cors',
+        //     method: 'GET',
+        //     headers:{Authorization:"Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk4OTdjZjk0NTllMjU0ZmYxYzY3YTRlYjZlZmVhNTJmMjFhOWJhMTQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUm9uZ1RpbmcgV3UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKemFTV0NodGdKMThTZ2RnUFVBSE5aVDB2NVBvV09VSDA4SGMwaDY9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXVkIjoicm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXV0aF90aW1lIjoxNjU2MjU5Njg4LCJ1c2VyX2lkIjoiU1lZS3k0VE53MVNWQnBOY0g5ZGVqTTFFT2tsMSIsInN1YiI6IlNZWUt5NFROdzFTVkJwTmNIOWRlak0xRU9rbDEiLCJpYXQiOjE2NTYzNzc4OTQsImV4cCI6MTY1NjM4MTQ5NCwiZW1haWwiOiJyb25ndGluZ2NvbXBhbnlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicm9uZ3Rpbmdjb21wYW55QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.eipBltZbwcB6_uRHrCFHCScNdkJD3KLdAmdYtOxgtUvOfLC4kftOhuLDKzCwiMuZ61xokTx0qZAGX-emOovYbXsNmIb7rYTL864NtTEVmMG2fGVz3oMPkfUrWFT2dHHiHkgRIoVgXNWanRCnlGrQPHzj6qkWOaBUuSoTKlGJ0V0JG3BCfswVpysZNbI-lTBjrpBvtjZ92m4MkTdMhN9IDfnOojmYf7vMR2xqTVBXOYYUuV_ifOnH8cseIOn_wNe_5TYRkFqOUpxMb2ugdN6ZY4QTv4w944ARB5-tLgwUe7djmW5aT47S1kYgB_MAAV61WrzxHdE9C5HhHrXrcFgZVA"}
+        //     })
+        //     .then(res => {
+        //         console.log(res.text())   // 使用 text() 可以得到純文字 String
+        //     }).then(result => {
+        //         console.log(result); // 得到「你的名字是：oxxo，年紀：18 歲。」
+        //     });
+        // $.ajax
+        //     ({
+
+        //         type: "GET",
+        //         url: "http://localhost:8083/api/users",
+        //         headers: {
+        //         //     // "Access-Control-Allow-Origin": window.location.origin,
+        //             "Authorization": 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk4OTdjZjk0NTllMjU0ZmYxYzY3YTRlYjZlZmVhNTJmMjFhOWJhMTQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUm9uZ1RpbmcgV3UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKemFTV0NodGdKMThTZ2RnUFVBSE5aVDB2NVBvV09VSDA4SGMwaDY9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXVkIjoicm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXV0aF90aW1lIjoxNjU2MjU5Njg4LCJ1c2VyX2lkIjoiU1lZS3k0VE53MVNWQnBOY0g5ZGVqTTFFT2tsMSIsInN1YiI6IlNZWUt5NFROdzFTVkJwTmNIOWRlak0xRU9rbDEiLCJpYXQiOjE2NTYzNzc4OTQsImV4cCI6MTY1NjM4MTQ5NCwiZW1haWwiOiJyb25ndGluZ2NvbXBhbnlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicm9uZ3Rpbmdjb21wYW55QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.eipBltZbwcB6_uRHrCFHCScNdkJD3KLdAmdYtOxgtUvOfLC4kftOhuLDKzCwiMuZ61xokTx0qZAGX-emOovYbXsNmIb7rYTL864NtTEVmMG2fGVz3oMPkfUrWFT2dHHiHkgRIoVgXNWanRCnlGrQPHzj6qkWOaBUuSoTKlGJ0V0JG3BCfswVpysZNbI-lTBjrpBvtjZ92m4MkTdMhN9IDfnOojmYf7vMR2xqTVBXOYYUuV_ifOnH8cseIOn_wNe_5TYRkFqOUpxMb2ugdN6ZY4QTv4w944ARB5-tLgwUe7djmW5aT47S1kYgB_MAAV61WrzxHdE9C5HhHrXrcFgZVA'
+        //         },
+        //         success: function (res) {
+        //             console.log(res);
+        //         },
+        //         error: err => {
+
+        //             console.log(err)
+        //         },
+        //     });
+        // var token = ""
+        // axios({
+        //     method: 'GET',
+        //     url: "http://localhost:8083/api/users",
+        //     responseType: 'json', // responseType 也可以寫在 header 裡面
+        //     headers: {
+        //         Authorization: `Bearer ${token}` // Bearer 跟 token 中間有一個空格
+        //     }
+        // })
+        //     .then(function (response) {
+        //         console.log(response);
+        //     })
+        //     .catch(function (error) {
+        //         console.log('錯誤', error);
+        //     });
+        // console.log(accessToke)
+        // var settings = {
+        //     "url": "http://localhost:8083/api/users",
+        //     "method": "GET",
+        //     "timeout": 0,
+        //     "headers": {
+        //         // "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk4OTdjZjk0NTllMjU0ZmYxYzY3YTRlYjZlZmVhNTJmMjFhOWJhMTQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUm9uZ1RpbmcgV3UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKemFTV0NodGdKMThTZ2RnUFVBSE5aVDB2NVBvV09VSDA4SGMwaDY9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXVkIjoicm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXV0aF90aW1lIjoxNjU2MjQ5NjgyLCJ1c2VyX2lkIjoiU1lZS3k0VE53MVNWQnBOY0g5ZGVqTTFFT2tsMSIsInN1YiI6IlNZWUt5NFROdzFTVkJwTmNIOWRlak0xRU9rbDEiLCJpYXQiOjE2NTYyNTc1MTAsImV4cCI6MTY1NjI2MTExMCwiZW1haWwiOiJyb25ndGluZ2NvbXBhbnlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicm9uZ3Rpbmdjb21wYW55QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ZkaTVOv8KkNxM5j1yUSdDwBXAfsBeJSjRPgQMa8u7GfMY0oQHIds1iJrc3wRfTKGGU62UIqVsNIfKfEOFqBG9vRwdIEbYcjck5_KMjqmqMPmbIrdl55HUV0QqL6Y9UIv2YN_G3ZHGe2hDKDOylwsllMchM09wPQdhweE4X5u0zwvbBXVR0ZVLq_To3GuRFITK4_Nst0A0QTMUuuDaDdhBw3NCV7q394WPxuf2OY0ThtPIRd55nU1ylWle3kRJhXr4Da554LFNlUaLf1vuHHXzoF8-YITjQpShXEWqS3_riRrEDIfdN2kazNk9t3_dVs19xjSU7Rvo1fN1apFIxg8bw",
+
+        //     },
+        // };
+
+        // $.ajax(settings).done(function (response) {
+        //     console.log(response);
+        // });
+    
+
+        // $.ajax({
+        //     url: "http://localhost:8083/api/users",
+        //     method: "GET",
+        //     // timeout: 0,
+        //     headers: {
+        //         "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk4OTdjZjk0NTllMjU0ZmYxYzY3YTRlYjZlZmVhNTJmMjFhOWJhMTQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUm9uZ1RpbmcgV3UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKemFTV0NodGdKMThTZ2RnUFVBSE5aVDB2NVBvV09VSDA4SGMwaDY9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXVkIjoicm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXV0aF90aW1lIjoxNjU2MjU5Njg4LCJ1c2VyX2lkIjoiU1lZS3k0VE53MVNWQnBOY0g5ZGVqTTFFT2tsMSIsInN1YiI6IlNZWUt5NFROdzFTVkJwTmNIOWRlak0xRU9rbDEiLCJpYXQiOjE2NTYzMzQzMjMsImV4cCI6MTY1NjMzNzkyMywiZW1haWwiOiJyb25ndGluZ2NvbXBhbnlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicm9uZ3Rpbmdjb21wYW55QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.T6xRV4iw8iN0zVtLrMk3fsiiYHnR-Vto5bF3_W0fd-1KP-6lt0oLwAmBQjeNNpD811LG7fOABKZa-3MyaavbX1TUi4G40bYLE2FYEemivwWIXGRD2AreFrQYxWBbue4mnOTkAKwSEa7aMp7dS8v-xpNOg4EvthU4jxJXlzC8-YHiZTZV9IOf-wubPuYhpJKDgfMk5S49wnPEFYprcKTARVvexpCg9JhlG0Q00rzxHuRnB44-IA2njSsH_YBtP9h7Hx-rT4lplflT2WYJirPEfzZVwO1KNtXnFZZOmf-Q8Uqlz2Rwu8CXBxCJ1jnwwQXASWjNBDuPItAHegzUDJxmUQ",
+               
+        //     },
+        // })
+        
     </script>
 </body>
 

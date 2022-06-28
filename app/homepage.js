@@ -22,22 +22,69 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
 
+
 const auth = getAuth();
+// firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+//     // Send token to your backend via HTTPS
+//     // ...
+//   }).catch(function(error) {
+//     // Handle error
+// });
 let statechange = function(){onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.uid;
         console.log(uid);
+        console.log(user);
         console.log(user.accessToken);
-        console.log('login success')
+        
+        console.log('login success');
+        console.log($('h3').text());
+        var api= "http://localhost:8083/api/users"
+         $.ajax({
+                // mode: 'no-cors',
+                type: "GET",
+                url: "http://localhost:8083/api/users",
+                // dataType: 'json',
+                headers: {
+                    "Authorization": "Bearer " + `${user.accessToken}`
+                },
+                success: function (res) {
+                    console.log(res);
+                },
+                error: err => {
+
+                    console.log(err)
+                },
+            });
+       
+        
+        // axios({
+        //     method: 'GET',
+        //     url: "http://localhost:8083/api/users",
+        //     responseType: 'json', // responseType 也可以寫在 header 裡面
+        //     headers: {
+        //         Authorization: `Bearer ${user.accessToken}` // Bearer 跟 token 中間有一個空格
+        //     }
+        // })
+        //     .then(function (response) {
+        //         console.log(response);
+        //     })
+        //     .catch(function (error) {
+        //         console.log('錯誤', error);
+        //     });
+        // console.log(accessToke)
         document.getElementById('loginbtn').innerText='登出'
+        
     } else {
         // window.location.href = "login.html";
         document.getElementById('loginbtn').innerText='登入'
         
     }
 })}();
+
+
 
 loginbtn.addEventListener("click", function () {
     const auth = getAuth();
@@ -59,4 +106,6 @@ loginbtn.addEventListener("click", function () {
     
 
 })
+
+
 

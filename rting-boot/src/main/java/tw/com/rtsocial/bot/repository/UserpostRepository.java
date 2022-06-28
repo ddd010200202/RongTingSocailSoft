@@ -1,11 +1,12 @@
 package tw.com.rtsocial.bot.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-import tw.com.rtsocial.bot.domain.UserinfoBean;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import tw.com.rtsocial.bot.domain.UserpostBean;
 
-public class UserpostRepository  {
-
+public interface UserpostRepository extends JpaRepository<UserpostBean, Integer> {
+	//藉由userid查詢post
+	List<UserpostBean> findByUserid(String userid);
 }
