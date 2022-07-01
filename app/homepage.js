@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-analytics.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signOut ,getIdToken} from "https://www.gstatic.com/firebasejs/9.8.2/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,6 +30,15 @@ const auth = getAuth();
 //   }).catch(function(error) {
 //     // Handle error
 // });
+
+
+function setCookie(cname, cvalue) {
+    // const d = new Date();
+    // d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    // let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" +"max-age=3600" + ";path=http://127.0.0.1:5500/index.html;"+"HttpOnly;"
+}
+
 let statechange = function(){onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is signed in, see docs for a list of available properties
@@ -38,26 +47,8 @@ let statechange = function(){onAuthStateChanged(auth, (user) => {
         console.log(uid);
         console.log(user);
         console.log(user.accessToken);
-        
-        console.log('login success');
-        console.log($('h3').text());
-        var api= "http://localhost:8083/api/users"
-         $.ajax({
-                // mode: 'no-cors',
-                type: "GET",
-                url: "http://localhost:8083/api/users",
-                // dataType: 'json',
-                headers: {
-                    "Authorization": "Bearer " + `${user.accessToken}`
-                },
-                success: function (res) {
-                    console.log(res);
-                },
-                error: err => {
+        setCookie("token", user.accessToken)
 
-                    console.log(err)
-                },
-            });
        
         
         // axios({
