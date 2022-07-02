@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!--bootstrap-->
+    <link href="./app/bootstrap.min.css" rel="stylesheet" />
+    <!--地圖-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+      crossorigin=""
+    ></script>
+    <style>
+      div.scrollmenu {
+        background-color: white;
+        overflow: auto;
+        white-space: nowrap;
+      }
+
+      div.scrollmenu img {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px;
+        text-decoration: none;
+      }
+
+      /* div.scrollmenu a:hover {
+            background-color: #777;
+        } */
+      #map {
+        width: 100%;
+        height: 600px;
+        background: #333;
+      }
+
+      ul,
+      li {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <section>
+      <div class="container">
+        <div class="row">
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">RTCompany</a>
+
+              <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav me-auto">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#">Homepage</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Album</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Friend</a>
+                  </li>
+                  <!-- <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                          </li>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="#">Action</a>
+                              <a class="dropdown-item" href="#">Another action</a>
+                              <a class="dropdown-item" href="#">Something else here</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
+                          </li> -->
+                </ul>
+                <div class="d-flex">
+                  <!-- <button class="btn btn-outline-info my-2 my-sm-0">註冊</button> -->
+                  <button
+                    id="loginbtn"
+                    class="btn btn-outline-success my-2 my-sm-0"
+                  >
+                    登入
+                  </button>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <div class="row" style="margin-top: 60px">
+          <div class="col-lg-12">
+            <div class="scrollmenu">
+              <div id="map"></div>
+              <!-- <img style="height: 1500px;" src="./img/Taiwan-Map-Regional-Division.png" alt=""> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row" style="">
+          <div class="col-xl-3">
+            <h1>Friend</h1>
+
+            <div>
+              <ul style="list-style: none">
+                <li>
+                  <img
+                    src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                    style="width: 50px"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                    style="width: 50px"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                    style="width: 50px"
+                  />
+                </li>
+                <li>
+                  <img
+                    src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                    style="width: 50px"
+                  />
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <h1>Post</h1>
+            <div>
+              <h3>Title</h3>
+              <p style="font-size: 5px">Time</p>
+              <p>Post_Desc</p>
+
+              <img src="./img/mMC9FBk.jpg" style="width: 546px" />
+              <input type="text" />
+              <button>Message</button><br />
+              <ul style="list-style: none">
+                <li>Message_Desc</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xl-3">
+            <h1 id="aa">Album</h1>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <img
+                      src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                      style="width: 100px"
+                    />
+                  </td>
+                  <td>
+                    <img
+                      src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                      style="width: 100px"
+                    />
+                  </td>
+                  <td>
+                    <img
+                      src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                      style="width: 100px"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                      style="width: 100px"
+                    />
+                  </td>
+                  <td>
+                    <img
+                      src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                      style="width: 100px"
+                    />
+                  </td>
+                  <td>
+                    <img
+                      src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                      style="width: 100px"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <img
+                      src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                      style="width: 100px"
+                    />
+                  </td>
+                  <td>
+                    <img
+                      src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                      style="width: 100px"
+                    />
+                  </td>
+                  <td>
+                    <img
+                      src="./img/螢幕擷取畫面 2022-06-21 203932.png"
+                      style="width: 100px"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--bootstrap-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+    <!--jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!--地圖-->
+    <script type="module" src="./app/homepage.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
+      integrity="sha512-xIPqqrfvUAc/Cspuj7Bq0UtHNo/5qkdyngx6Vwt+tmbvTLDszzXM0G6c91LXmGrRx8KEPulT+AfOOez+TeVylg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+      }
+
+      window.onload = function () {
+        $.ajax({
+          // mode: 'no-cors',
+          type: "GET",
+          url: "http://localhost:8083/api/users",
+          // dataType: 'json',
+          headers: {
+            Authorization: "Bearer " + `${getCookie("token")}`,
+          },
+          success: function (res) {
+            console.log(res);
+          },
+          error: (err) => {
+            console.log(err);
+          },
+        });
+      };
+      if (navigator.geolocation) {
+        // 使用者不提供權限，或是發生其它錯誤
+        function error() {
+          alert("無法取得你的位置");
+        }
+
+        // 使用者允許抓目前位置，回傳經緯度
+        function success(position) {
+          console.log(position)
+          console.log(position.coords.latitude, position.coords.longitude);
+          var map;
+          const center = [position.coords.latitude, position.coords.longitude];
+          map = L.map("map", {
+            center: center, // 中心點座標
+            zoom: 17, // 0 - 18
+            attributionControl: true, // 是否秀出「leaflet」的貢獻標記
+            zoomControl: true, // 是否秀出 - + 按鈕
+          });
+          L.tileLayer(
+            "https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png",
+            {
+              maxZoom: 20,
+              attribution:
+                '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+            }
+          ).addTo(map);
+
+          const marker1 = L.marker([23.987664127079235, 120.53765773773195], {
+            title: "我的開始地", // 跟 <a> 的 title 一樣
+            opacity: 1.0,
+          }).addTo(map);
+          const marker2 = L.marker([position.coords.latitude, position.coords.longitude], {
+            title: "我的開始地", // 跟 <a> 的 title 一樣
+            opacity: 1.0,
+          }).addTo(map);
+          marker2
+            .bindPopup("<b>從這裡出發!</b><br>我從這裡開始使用程式")
+            .openPopup();
+          const popup = L.popup();
+
+          function onMapClick(e) {
+            let lat = e.latlng.lat; // 緯度
+            let lng = e.latlng.lng; // 經度
+            popup
+              .setLatLng(e.latlng)
+              .setContent(`緯度：${lat}<br/>經度：${lng}`)
+              .openOn(map);
+          }
+          map.on("click", onMapClick);
+        }
+
+        // 跟使用者拿所在位置的權限
+        navigator.geolocation.getCurrentPosition(success, error);
+      } else {
+        alert("Sorry, 你的裝置不支援地理位置功能。");
+      }
+      // $('#loginbtn').on('click', function() {
+      //     window.location.href="login.html";
+      // });
+      // console.log('Bearer '+'eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk4OTdjZjk0NTllMjU0ZmYxYzY3YTRlYjZlZmVhNTJmMjFhOWJhMTQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUm9uZ1RpbmcgV3UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKemFTV0NodGdKMThTZ2RnUFVBSE5aVDB2NVBvV09VSDA4SGMwaDY9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXVkIjoicm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXV0aF90aW1lIjoxNjU2MjAzMjcyLCJ1c2VyX2lkIjoiU1lZS3k0VE53MVNWQnBOY0g5ZGVqTTFFT2tsMSIsInN1YiI6IlNZWUt5NFROdzFTVkJwTmNIOWRlak0xRU9rbDEiLCJpYXQiOjE2NTYyNDA5NzUsImV4cCI6MTY1NjI0NDU3NSwiZW1haWwiOiJyb25ndGluZ2NvbXBhbnlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicm9uZ3Rpbmdjb21wYW55QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.qFVJt95cc-nYB8o5v9Bs4oq4Pc68hCGkgayCKVD1mF_Z7Udmc5fr0-No1nQNGJ4mi7y59FcYFiGMTRR-1P7yMNDbklwtrVe7GwRBVWOkPb9TmTchWXR01NEaHNpMv4rlVmkzLhB-DfdVBWrWjrRGs_Lnvr5zxxl48NHNgxHbnE-01MTQQ0I3Gi5cp1U9x5EWghlsRnZTYdD11KdjqwaquSdgzPlM6S8t8W-qYdgmvJThk7fz0awcf6FiGhftzh_y7Xb6-wmJ12MqctSo231C9AKFseHnTYEVW3rh9p70Uwgl5PVwgnLh7gImgEmeh0jYTtR-TGNoDS6xSruSxZL7SQ')
+      // fetch("http://localhost:8083/api/users", {
+      //     mode: 'no-cors',
+      //     method: 'GET',
+      //     headers:{Authorization:"Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk4OTdjZjk0NTllMjU0ZmYxYzY3YTRlYjZlZmVhNTJmMjFhOWJhMTQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUm9uZ1RpbmcgV3UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKemFTV0NodGdKMThTZ2RnUFVBSE5aVDB2NVBvV09VSDA4SGMwaDY9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXVkIjoicm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXV0aF90aW1lIjoxNjU2MjU5Njg4LCJ1c2VyX2lkIjoiU1lZS3k0VE53MVNWQnBOY0g5ZGVqTTFFT2tsMSIsInN1YiI6IlNZWUt5NFROdzFTVkJwTmNIOWRlak0xRU9rbDEiLCJpYXQiOjE2NTYzNzc4OTQsImV4cCI6MTY1NjM4MTQ5NCwiZW1haWwiOiJyb25ndGluZ2NvbXBhbnlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicm9uZ3Rpbmdjb21wYW55QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.eipBltZbwcB6_uRHrCFHCScNdkJD3KLdAmdYtOxgtUvOfLC4kftOhuLDKzCwiMuZ61xokTx0qZAGX-emOovYbXsNmIb7rYTL864NtTEVmMG2fGVz3oMPkfUrWFT2dHHiHkgRIoVgXNWanRCnlGrQPHzj6qkWOaBUuSoTKlGJ0V0JG3BCfswVpysZNbI-lTBjrpBvtjZ92m4MkTdMhN9IDfnOojmYf7vMR2xqTVBXOYYUuV_ifOnH8cseIOn_wNe_5TYRkFqOUpxMb2ugdN6ZY4QTv4w944ARB5-tLgwUe7djmW5aT47S1kYgB_MAAV61WrzxHdE9C5HhHrXrcFgZVA"}
+      //     })
+      //     .then(res => {
+      //         console.log(res.text())   // 使用 text() 可以得到純文字 String
+      //     }).then(result => {
+      //         console.log(result); // 得到「你的名字是：oxxo，年紀：18 歲。」
+      //     });
+      // $.ajax
+      //     ({
+
+      //         type: "GET",
+      //         url: "http://localhost:8083/api/users",
+      //         headers: {
+      //         //     // "Access-Control-Allow-Origin": window.location.origin,
+      //             "Authorization": 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk4OTdjZjk0NTllMjU0ZmYxYzY3YTRlYjZlZmVhNTJmMjFhOWJhMTQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUm9uZ1RpbmcgV3UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKemFTV0NodGdKMThTZ2RnUFVBSE5aVDB2NVBvV09VSDA4SGMwaDY9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXVkIjoicm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXV0aF90aW1lIjoxNjU2MjU5Njg4LCJ1c2VyX2lkIjoiU1lZS3k0VE53MVNWQnBOY0g5ZGVqTTFFT2tsMSIsInN1YiI6IlNZWUt5NFROdzFTVkJwTmNIOWRlak0xRU9rbDEiLCJpYXQiOjE2NTYzNzc4OTQsImV4cCI6MTY1NjM4MTQ5NCwiZW1haWwiOiJyb25ndGluZ2NvbXBhbnlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicm9uZ3Rpbmdjb21wYW55QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.eipBltZbwcB6_uRHrCFHCScNdkJD3KLdAmdYtOxgtUvOfLC4kftOhuLDKzCwiMuZ61xokTx0qZAGX-emOovYbXsNmIb7rYTL864NtTEVmMG2fGVz3oMPkfUrWFT2dHHiHkgRIoVgXNWanRCnlGrQPHzj6qkWOaBUuSoTKlGJ0V0JG3BCfswVpysZNbI-lTBjrpBvtjZ92m4MkTdMhN9IDfnOojmYf7vMR2xqTVBXOYYUuV_ifOnH8cseIOn_wNe_5TYRkFqOUpxMb2ugdN6ZY4QTv4w944ARB5-tLgwUe7djmW5aT47S1kYgB_MAAV61WrzxHdE9C5HhHrXrcFgZVA'
+      //         },
+      //         success: function (res) {
+      //             console.log(res);
+      //         },
+      //         error: err => {
+
+      //             console.log(err)
+      //         },
+      //     });
+      // var token = ""
+      // axios({
+      //     method: 'GET',
+      //     url: "http://localhost:8083/api/users",
+      //     responseType: 'json', // responseType 也可以寫在 header 裡面
+      //     headers: {
+      //         Authorization: `Bearer ${token}` // Bearer 跟 token 中間有一個空格
+      //     }
+      // })
+      //     .then(function (response) {
+      //         console.log(response);
+      //     })
+      //     .catch(function (error) {
+      //         console.log('錯誤', error);
+      //     });
+      // console.log(accessToke)
+      // var settings = {
+      //     "url": "http://localhost:8083/api/users",
+      //     "method": "GET",
+      //     "timeout": 0,
+      //     "headers": {
+      //         // "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk4OTdjZjk0NTllMjU0ZmYxYzY3YTRlYjZlZmVhNTJmMjFhOWJhMTQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUm9uZ1RpbmcgV3UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKemFTV0NodGdKMThTZ2RnUFVBSE5aVDB2NVBvV09VSDA4SGMwaDY9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXVkIjoicm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXV0aF90aW1lIjoxNjU2MjQ5NjgyLCJ1c2VyX2lkIjoiU1lZS3k0VE53MVNWQnBOY0g5ZGVqTTFFT2tsMSIsInN1YiI6IlNZWUt5NFROdzFTVkJwTmNIOWRlak0xRU9rbDEiLCJpYXQiOjE2NTYyNTc1MTAsImV4cCI6MTY1NjI2MTExMCwiZW1haWwiOiJyb25ndGluZ2NvbXBhbnlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicm9uZ3Rpbmdjb21wYW55QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.ZkaTVOv8KkNxM5j1yUSdDwBXAfsBeJSjRPgQMa8u7GfMY0oQHIds1iJrc3wRfTKGGU62UIqVsNIfKfEOFqBG9vRwdIEbYcjck5_KMjqmqMPmbIrdl55HUV0QqL6Y9UIv2YN_G3ZHGe2hDKDOylwsllMchM09wPQdhweE4X5u0zwvbBXVR0ZVLq_To3GuRFITK4_Nst0A0QTMUuuDaDdhBw3NCV7q394WPxuf2OY0ThtPIRd55nU1ylWle3kRJhXr4Da554LFNlUaLf1vuHHXzoF8-YITjQpShXEWqS3_riRrEDIfdN2kazNk9t3_dVs19xjSU7Rvo1fN1apFIxg8bw",
+
+      //     },
+      // };
+
+      // $.ajax(settings).done(function (response) {
+      //     console.log(response);
+      // });
+
+      // $.ajax({
+      //     url: "http://localhost:8083/api/users",
+      //     method: "GET",
+      //     // timeout: 0,
+      //     headers: {
+      //         "Authorization": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk4OTdjZjk0NTllMjU0ZmYxYzY3YTRlYjZlZmVhNTJmMjFhOWJhMTQiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUm9uZ1RpbmcgV3UiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKemFTV0NodGdKMThTZ2RnUFVBSE5aVDB2NVBvV09VSDA4SGMwaDY9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXVkIjoicm9uZ3Rpbmdjb21wYW55LWFiM2I3IiwiYXV0aF90aW1lIjoxNjU2MjU5Njg4LCJ1c2VyX2lkIjoiU1lZS3k0VE53MVNWQnBOY0g5ZGVqTTFFT2tsMSIsInN1YiI6IlNZWUt5NFROdzFTVkJwTmNIOWRlak0xRU9rbDEiLCJpYXQiOjE2NTYzMzQzMjMsImV4cCI6MTY1NjMzNzkyMywiZW1haWwiOiJyb25ndGluZ2NvbXBhbnlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsicm9uZ3Rpbmdjb21wYW55QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.T6xRV4iw8iN0zVtLrMk3fsiiYHnR-Vto5bF3_W0fd-1KP-6lt0oLwAmBQjeNNpD811LG7fOABKZa-3MyaavbX1TUi4G40bYLE2FYEemivwWIXGRD2AreFrQYxWBbue4mnOTkAKwSEa7aMp7dS8v-xpNOg4EvthU4jxJXlzC8-YHiZTZV9IOf-wubPuYhpJKDgfMk5S49wnPEFYprcKTARVvexpCg9JhlG0Q00rzxHuRnB44-IA2njSsH_YBtP9h7Hx-rT4lplflT2WYJirPEfzZVwO1KNtXnFZZOmf-Q8Uqlz2Rwu8CXBxCJ1jnwwQXASWjNBDuPItAHegzUDJxmUQ",
+
+      //     },
+      // })
+    </script>
+  </body>
+</html>

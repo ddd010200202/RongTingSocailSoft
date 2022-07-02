@@ -18,5 +18,5 @@ public interface UserinfoService {
     public List<UserinfoBean> getUserInfofindfindByUsermail(String usermail);
     
     // 更新單筆使用者資料
-    public Object updateUserInfo(String userid, UserinfoBean userInfoBean);
+    public Object updateUserInfo(String usermail, UserinfoBean userInfoBean);
 }

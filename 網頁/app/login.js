@@ -25,6 +25,12 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 var submitBtn = document.getElementById('submitBtn');
+function setCookie(cname, cvalue) {
+    // const d = new Date();
+    // d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    // let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" +"max-age=3600" + ";path=http://127.0.0.1:5500/index.html;"+"Secure;"
+}
 
 submitBtn.addEventListener('click', function () {
     var email = document.getElementById('email').value;
@@ -33,18 +39,54 @@ submitBtn.addEventListener('click', function () {
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in 
-            alert('登入成功')
-            
             const user = userCredential.user;
+            setCookie("token", user.accessToken)
+            $.ajax({
+                // mode: 'no-cors',
+                type: "GET",
+                url: `http://localhost:8083/api/users?usermail=${email}`,
+                // dataType: 'json',
+                headers: {
+                  Authorization: "Bearer " + `${user.accessToken}`,
+                },
+                success: function (res) {
+                    console.log(res[0].USERTOKEN);
+                    console.log(user.uid);
+                    // console.log(user.uid);
+                    res[0].USERTOKEN=user.uid
+                    console.log(res[0].USERTOKEN);
+                    
+                     
+                  $.ajax({
+                    
+                    url: `http://localhost:8083/api/putToken`,
+                    method: "PUT",
+                    headers: {
+                        Authorization: "Bearer " + `${user.accessToken}`,
+                    },
+                    contentType: "application/JSON",
+                    data: JSON.stringify(res[0]) ,
+                    success: function () { console.log(res[0].USERTOKEN);alert('登入成功');window.location.href = "index.html" },
+                    error: function (err) {console.log(err); }
+                  })
+                },
+                error: (err) => {
+                  console.log(err);
+                },
+              });
+           
+            
+            
             console.log(user)
-            console.log(userCredential.uid)
-            window.location.href = "index.html"
+            
+            
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log(errorMessage)
             console.log(errorCode)
+            alert('登入失敗')
         });
 });
 
@@ -64,6 +106,7 @@ googleBtn.addEventListener('click', function () {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
+        setCookie("token", token)
         // The signed-in user info.
         const user = result.user;
         // ...

@@ -32,24 +32,13 @@ const auth = getAuth();
 // });
 
 
-function setCookie(cname, cvalue) {
-    // const d = new Date();
-    // d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    // let expires = "expires="+ d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" +"max-age=3600" + ";path=http://127.0.0.1:5500/index.html;"+"HttpOnly;"
-}
+
 
 let statechange = function(){onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.uid;
-        console.log(uid);
-        console.log(user);
-        console.log(user.accessToken);
-        setCookie("token", user.accessToken)
-
-       
         
         // axios({
         //     method: 'GET',
@@ -82,7 +71,7 @@ loginbtn.addEventListener("click", function () {
     if(document.getElementById('loginbtn').innerText=='登出'){
         signOut(auth).then(() => { 
             alert("登出成功")
-    
+            setCookie("token", " ")
                 
         }).catch((error) => {
             // An error happened.
